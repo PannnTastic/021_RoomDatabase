@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.roomdatabase_021.ui.theme.RoomDatabase_021Theme
+import com.example.roomdatabase_021.view.uicontroller.SiswaApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +21,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             RoomDatabase_021Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    SiswaApp(
+
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
