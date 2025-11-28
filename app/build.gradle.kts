@@ -61,5 +61,9 @@ dependencies {
 
     //icons
     implementation(libs.compose.icons)
+    //Room
+    implementation(libs.bundles.room)
+    ksp(libs.room.compiler)
+
 
 }
