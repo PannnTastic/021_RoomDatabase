@@ -23,7 +23,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roomdatabase_021.R
 import com.example.roomdatabase_021.view.route.DestinasiEntry
-import com.example.roomdatabase_021.view.uicontroller.SiswaTopAppBar
 import com.example.roomdatabase_021.viewmodel.DetailSiswa
 import com.example.roomdatabase_021.viewmodel.EntryViewModel
 import com.example.roomdatabase_021.viewmodel.UIStateSiswa

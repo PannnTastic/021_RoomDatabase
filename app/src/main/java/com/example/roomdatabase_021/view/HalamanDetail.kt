@@ -37,7 +37,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roomdatabase_021.R
 import com.example.roomdatabase_021.room.Siswa
 import com.example.roomdatabase_021.view.route.DestinasiDetailSiswa
-import com.example.roomdatabase_021.view.uicontroller.SiswaTopAppBar
 import com.example.roomdatabase_021.viewmodel.DetailSiswaUiState
 import com.example.roomdatabase_021.viewmodel.DetailViewModel
 import com.example.roomdatabase_021.viewmodel.provider.PenyediaViewModel
