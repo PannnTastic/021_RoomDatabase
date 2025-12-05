@@ -1,5 +1,6 @@
 package com.example.roomdatabase_021.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,10 +21,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -35,19 +39,24 @@ import com.example.roomdatabase_021.view.route.DestinasiHome
 import com.example.roomdatabase_021.viewmodel.HomeViewModel
 import com.example.roomdatabase_021.viewmodel.provider.PenyediaViewModel
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navigateToItemEntry: () -> Unit,
+    navigateToItemUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ){
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             SiswaTopAppBar(
                 title = stringResource(DestinasiHome.titleRes),
-                canNavigateBack = false
+                canNavigateBack = false,
+                scrollBehavior = scrollBehavior
             )
         },
         floatingActionButton = {
@@ -66,6 +75,7 @@ fun HomeScreen(
         val uiStateSiswa by viewModel.homUiState.collectAsState()
         BodyHome(
             itemSiswa = uiStateSiswa.listSiswa,
+            onSiswaClick = navigateToItemUpdate,
             modifier = Modifier.padding(innerPadding)
                 .fillMaxSize()
         )
@@ -76,39 +86,44 @@ fun HomeScreen(
 @Composable
 fun BodyHome(
     itemSiswa: List<Siswa>,
-    modifier : Modifier = Modifier
+    onSiswaClick: (Int) -> Unit,
+    modifier: Modifier = Modifier
 ){
-
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+    ) {
         if (itemSiswa.isEmpty()){
             Text(stringResource(R.string.noitem),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = modifier
+                style = MaterialTheme.typography.titleLarge
             )
         }
         else{
             ListSiswa(
                 itemSiswa = itemSiswa,
-                modifier = modifier.padding(horizontal = 8.dp)
+                onSiswaClick = { onSiswaClick(it.id) },
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
         }
-
+    }
 }
 
 @Composable
 fun ListSiswa(
     itemSiswa: List<Siswa>,
+    onSiswaClick: (Siswa) -> Unit,
     modifier: Modifier = Modifier
 ){
-    LazyColumn(modifier = modifier) {
+    LazyColumn(modifier = Modifier) {
         items(items = itemSiswa, key = {it.id}){
                 person -> DataSiswa(
             siswa = person,
             modifier = Modifier
-                .padding(all = 8.dp)
+                .padding(dimensionResource(id = R.dimen.padding_small))
+                .clickable{onSiswaClick(person)}
         )
         }
-
     }
 }
 
